@@ -2,6 +2,8 @@
 Para criar um comentário multilinha em Python, você pode usar uma string multilinha 
 (também conhecida como string de várias linhas). 
 As strings multilinhas são delimitadas por três aspas (simples ou duplas) no início e no final do comentário. 
+No entanto, é importante notar que esse tipo de comentário não é ignorado pelo interpretador Python e ocupará 
+espaço na memória quando o código for executado. Portanto, é melhor usá-los com moderação para manter o código limpo e legível.
 """
 #comentario
  #DECLARANDO VARIAVEIS
