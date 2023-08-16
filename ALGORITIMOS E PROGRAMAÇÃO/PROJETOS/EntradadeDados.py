@@ -7,6 +7,7 @@ print(saudação)
 try:
  num1 = int (input ("Digite o primeiro numero")) #Para somar tem que tranformar o numero em inteiro ou da erro na soma
  num2 = int (input ("Digite o segundo numero"))
-except:
+except: # só executa se a tentativa falhar TRY
  print("Você deve inserir um numero inteiro")
+else:
  print (num1 + num2)
