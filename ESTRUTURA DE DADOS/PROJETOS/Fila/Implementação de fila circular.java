@@ -10,3 +10,4 @@ public class FilaCircular<T> impements Fila<T> {
   private int mover(int posição) {
     return posição+1 ==dados.length ? 0 : posição+1;
   }
+,
