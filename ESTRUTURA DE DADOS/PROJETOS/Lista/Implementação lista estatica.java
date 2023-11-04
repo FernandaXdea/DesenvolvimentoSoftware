@@ -49,6 +49,19 @@ public void adicionar (T valor) {
   adicionar (tamanho, valor);
 }
 
+//excluir , movimentar da esquerda para a direita  e tirara a referencia do ultimo elemento
+@Override
+public T remover (int pos) {
+  Objects,checkIndex (pos,tamanho);
+T dado = dados [pos]; // dado a ser retornado
+//move os elementos para a esquerda
+for (int i = pos, i < tamanho-1; i++) {
+  dados[i] = dados [i+1];
+}
+dados[tamanho-1] = null; // elimina o ultimo dados
+tamanho = tamanho-1; // reduz o tamanho da lista
+return dado;
+}
 
 
 
