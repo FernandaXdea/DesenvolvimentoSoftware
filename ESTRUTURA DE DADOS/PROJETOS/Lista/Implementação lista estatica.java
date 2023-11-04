@@ -52,7 +52,7 @@ public void adicionar (T valor) {
 //excluir , movimentar da esquerda para a direita  e tirara a referencia do ultimo elemento
 @Override
 public T remover (int pos) {
-  Objects,checkIndex (pos,tamanho);
+  Objects,checkIndex (pos,tamanho); // validação da posição
 T dado = dados [pos]; // dado a ser retornado
 //move os elementos para a esquerda
 for (int i = pos, i < tamanho-1; i++) {
@@ -63,6 +63,14 @@ tamanho = tamanho-1; // reduz o tamanho da lista
 return dado;
 }
 
+//Limpeza: remover todas as referencias e define o tamanho 0
+@Override                                 |    | @Override
+public void limpar() {                    | OU | public void limpar() {
+  for (int i =0; i< getTamanho(); i++) {  |    | Arrays.fill(dados,0, getTamanho(), null);
+    dados[i] = null;                      |    |tamanho = 0; }
+  }
+  tamanho =0;
+}
 
 
 
