@@ -26,3 +26,43 @@ public boolean isVazia() {
 public boolean isCheia() { //qnd o tamanho for igual a capacidade
   return getTamanho() == getCapacidade;
 }
+
+// Adição
+@Override
+public void adicionar (int pos, T valor) {
+  if (isCheia()) {
+    throw new IllegalStatwExcepition("Lista cheita"); //overflow
+  }
+  Objects.checkIndex(pos, tamanho+1); //testa se os indices saõ validos
+
+  //move os dados para a direita
+  for (int i = tamanho-1; i >= pos; i--) {
+    dados [i+1]=dados[i];
+  }
+  dados[pos] =valor; //insere o dado
+    tamanho = tamanho +1; // aumenta o tamanho
+}
+
+//Adicinar ao final da lista
+@Override
+public void adicionar (T valor) {
+  adicionar (tamanho, valor);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
