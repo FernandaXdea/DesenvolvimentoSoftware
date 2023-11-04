@@ -72,8 +72,17 @@ public void limpar() {                    | OU | public void limpar() {
   tamanho =0;
 }
 
-
-
+//ACESSO DIRETO: ACESSA O INDICE DO VETOR DIRETAMENT. sIMILAR AOS [] DE UM VETOR.
+@Override
+public T get(int pos {
+  Objects.checkIndex (00, tamanho);
+return dados [pos];
+}
+@Override
+public void set (int pos, T valor) {
+  Objects.checkIndex(pos,tamanho);
+  dados [pos] = valor;
+}
 
 
 
