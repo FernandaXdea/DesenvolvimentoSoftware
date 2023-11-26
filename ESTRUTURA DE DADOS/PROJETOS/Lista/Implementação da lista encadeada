@@ -122,3 +122,107 @@ base = null;
 topo = null;
 tamanho = 0;
 }
+
+//ACESSO DIRETO A DADOS DA LISTA
+
+@Override
+public T get(int pos) {
+ return getNo(pos).dado;
+}
+@Override
+public void set(int pos, T valor) {
+ getNo(pos).dado = valor;
+}
+
+//Essa característica torna os iteradores e, consequentemente, o comando for each especialmente interessantes. 
+//Considere o custo de performance de percorrer a lista encadeada por índices, utilizando um for desse tipo:
+
+for (int i = 0; i < li.getTamanho(); i++) {
+ System.out.println(li.get(i));
+}
+
+//BUSCA NA LISTA
+
+@Override
+public int indice(T valor) {
+ if (isVazia()) return -1;
+ var atual = base;
+ int pos = 0;
+ while (atual != null) {
+ if (Objects.equals(atual.dado, valor)) {
+ return pos;
+ }
+ pos = pos + 1;
+ atual = atual.proximo;
+ }
+ return -1;
+}
+
+//ITERAÇÃO
+
+@Override
+public Iterator<T> iterator() {v
+ return new ListaIterator();
+}
+private class ListaIterator implements Iterator<T> {
+ private No<T> atual = null;
+ @Override
+ public boolean hasNext() {
+ return !isVazia() && atual != topo;
+}
+@Override
+public T next() {
+ atual = (atual == null ? base : atual.proximo);
+ return atual.dado;
+}
+@Override
+public void remove() {
+ remover(atual);
+ atual = atual.anterior;
+ }
+}
+_______________________
+ULTIMOS AJUSTES
+_______________________
+Você deve ter notado que há muitas similaridades entre as classes 
+implementadas até agora, como:
+• podem ser limpas;
+• permitem uma forma de adição sem parâmetros;
+• possuem os métodos isVazia e isCheia;
+• podem ser iteradas.
+Isto ocorre porque essas são características de todas as classes implementadas até agora (pilha, fila e lista), independentemente do seu 
+tipo. Assim, podemos associar todas elas em um único conceito chamado coleção, isto é, uma classe capaz de armazenar vários objetos. Na 
+programação, mapeamos esse conceito na seguinte interface:
+public interface Colecao<T> extends Iterable<T> {
+ void limpar();
+ void adicionar(T valor);
+ boolean isVazia();
+ boolean isCheia();
+}
+Podemos então fazer as interfaces pilha, fila e lista herdarem essa 
+interface, removendo delas métodos duplicados. Como exemplo, veja 
+a nova interface da pilha:
+1
+2
+3
+public interface Pilha<T> extends Colecao<T> {
+ T remover();
+}
+A primeira vantagem de se fazer isso é que o Java permite a inclusão 
+de métodos padrão em suas interfaces. Podemos inclui-los para todas 
+as ações que não dependem das partes privadas das coleções, o que 
+geralmente ocorre em métodos que criamos para conveniência de uso, 
+e não para implementar uma funcionalidade em si (ORACLE, 2019a).
+Por exemplo, podemos adicionar à interface Colecao o método 
+adicionarTodos, que recebe como parâmetro um vetor de elementos 
+e o adiciona à coleção:
+1
+2
+3
+4
+5
+default void adicionarTodos(T ... valores) {
+ for (T valor : valores) {
+ adicionar(valor);
+ }
+}
