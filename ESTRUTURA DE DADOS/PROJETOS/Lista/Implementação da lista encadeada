@@ -1,0 +1,124 @@
+//Iplementação basica
+public class ListaEncadeada<T> implements Lista<T> {
+ private static class No<T> {
+ No<T> anterior;
+ T dado;
+ No<T> proximo;
+ public No(T valor) {
+ dado = valor;
+ }
+ }
+ private No<T> base = null;
+ private No<T> topo = null;
+ private int tamanho = 0;
+
+//Informaçoes da lista
+
+@Override
+public boolean isVazia() {
+ return tamanho == 0;
+}
+@Override
+public boolean isCheia() {
+ return false;
+}
+@Override
+public int getTamanho() {
+ return tamanho;
+
+}
+
+//ADIÇÃO COM LISTA VAZIA
+
+@Override
+public void adicionar(T valor) {
+ var no = new No<T>(valor);
+ if (isVazia()) {
+ base = no;
+ } else {
+ no.anterior = topo; 
+ topo.proximo = no; 
+ }
+ topo = no; 
+ tamanho = tamanho + 1; 
+}
+
+//ADIÇÃO PELO INDICE
+
+private No<T> getNo(int pos) {
+ Objects.checkIndex(pos, tamanho);
+ int meio = tamanho / 2;
+ //Itera para frente
+ if (pos <= meio) {
+ No<T> atual = base;
+ for (int i = 0; i < pos; i++) {
+ atual = atual.proximo;
+ }
+ return atual;
+ }
+ //Itera para trás
+No<T> atual = topo;
+for (int i = tamanho-1; i != pos; i--) {
+ atual = atual.anterior;
+}
+return atual;
+}
+
+//ADICIONAR
+
+@Override
+public void adicionar(int pos, T valor) {
+ Objects.checkIndex(pos, getTamanho()+1);
+ 
+ //Adicionando no fim?
+ if (pos == getTamanho()) {
+ adicionar(valor);
+ return;
+ }
+ var no = new No<T>(valor);
+ var proximo = getNo(pos);
+ var anterior = proximo.anterior;
+ no.anterior = anterior; 
+ no.proximo = proximo; 
+ if (anterior == null) { //Base?
+ base = no;
+ } else {
+ anterior.proximo = no; 
+}
+proximo.anterior = no; 
+tamanho = tamanho+1; 
+}
+
+//REMOÇÃO DE LEMENTOS
+
+private T remover(No<T> no) {
+T dado = no.dado;
+var anterior = no.anterior;
+var proximo = no.proximo;
+ 
+if (anterior == null) {
+ base = proximo;
+} else {
+ anterior.proximo = proximo; //1
+}
+if (proximo == null) {
+ topo = anterior;
+} else {
+ proximo.anterior = anterior; //2
+}
+tamanho = tamanho - 1; //2
+return dado;
+}
+@Override
+public T remover(int pos) {
+ return remover(getNo(pos));
+}
+
+//LIMPAR
+
+@Override
+public void limpar() {
+base = null;
+topo = null;
+tamanho = 0;
+}
