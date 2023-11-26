@@ -156,11 +156,35 @@ for(var valor : lista){
   // ou pode usar o lambda
 lista.forEach(valor -> System.out.println(valor));
   
+//METODO REMOVE DO ITERAROR
+@Override
+public void remove() {
+ remover(atual);
+ atual = atual - 1;
+}
 
+//METODO ADICIONAR NA LISTA DINAMICA
+@Override
+public void adicionar(int pos, T valor) {
+ //Já está em capacidade máxima?
+ if (getTamanho() == getCapacidade()) {
+ //Redimensiona
+ int novaCapacidade = (int)(getCapacidade() * 1.5);
+ dados = Arrays.copyOf(dados, novaCapacidade); 
+ }
+ Objects.checkIndex(pos, tamanho+1);
+ //Move os dados para a direita
+ for (int i = tamanho-1; i >= pos; i--) {
+ dados[i+1] = dados[i];
+ }
+dados[pos] = valor; //Insere o dado
+ tamanho = tamanho + 1; //Aumenta o tamanho
+}
 
-
-
-
+//DIMINUIÇÃO DA LISTA
+public void ajustar() {
+  ados = Arrays.copyOf(dados, getTamanho());
+}
 
 
 
