@@ -84,9 +84,78 @@ public void set (int pos, T valor) {
   dados [pos] = valor;
 }
 
+// BUSCA DE ELEMENTOS(NÃO É POSSIVEL BUSCAR ELEMENTOS INTERMEDIARIOS_USA-SE ITERAÇÃO PARA ISSO_)
 
+public static boolean equals (Object a, Object b) {
+  return (a==b) || (a != null && a.equals(b)); // testa se as identidades são iguais   
+}
+_____________________
+@Override
+public int indice (T valor) {
+  for (int i =0; i< tamanho; i ++ {
+    if (Objects.equals (valor, dados[i])){
+      return i;
+    }
+  }
+return -1
+}
 
+// ITERAÇÃO: PECORRE A LISTA DO PRIMEIRO AO ULTIMO ELEMENTO
+  int atual = -1;
+whilw ((atual=1) < getTamanho()){
+  atual = atual +1;
+  T dado = dados[atual];
 
+  //usa o elemento
+  System.out.println(dado)
+}
+ //ITERAÇÃO: E SE FOSSE UMA FILA ENCADEADA?
+No<T> atual = null;
+
+while  (!isVazia() && atual !=topo) {
+  atual = (atual == null ? baze : atual.proximo;
+  T dado = atual.dado;
+
+  System.out.println(dado);
+}
+
+//ITERAÇÃO: A ITERAÇÃO LISTA BASSA A ESTENDER INTERABLE
+
+public interface Lista<T> extebds Iterable<T>{   
+}
+//ITERATOR: obj capaz de percorrer a lista
+
+private class ListaIterator implements Iterator<T> {
+  @Override
+  public boolean hasNext() {
+    return (atual+1) < getTamanho();
+  }
+  @Override
+  public T next(){
+    atual = atual+1;
+    return dados[atual];
+  }
+}
+
+//IMPLEMENTAÇÃO ITERABLE
+@Override
+public Iterator<T> iterator() {
+  return new ListaIterator();
+}
+    //AGORA PODE SE REESCREVER O WHILE:
+var iterator = iterator();
+while (iterator.hasNext()) {
+  T dado = iterator.next();
+  //usa o elemento
+  System.out.println(dado);
+}
+  // OU PODE UTILIZAR O FOR EACH(plê-se para cada...)
+for(var valor : lista){
+  System.out.println(valor);
+}
+  // ou pode usar o lambda
+lista.forEach(valor -> System.out.println(valor));
+  
 
 
 
